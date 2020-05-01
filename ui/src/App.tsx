@@ -2,34 +2,20 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const App: React.FC = () => {
-  const [s, setS] = useState([]);
+  const [s, setS] = useState<any>(undefined);
 
   useEffect(() => {
     const fetchData = async () => {
-      const promise = await axios.get('https://newmedium.herokuapp.com/ping');
-      setS(promise.data.news);
+      const promise = await axios.get('http://localhost:3001/ping');
+      setS(promise.data);
     };
     fetchData();
   }, [setS]);
 
-  console.log(s);
-  if (s) {
-    return (
-      <div>
-        {s.map((n: any) =>
-          <div key={n}>
-            <h2>{n.title}</h2>
-            <img src={n.image}></img>
-          </div>
-        )}
-      </div>
-
-    );
-  } return (
-    <>
-      {console.log(s)}
-      loading...
-    </>
+  return (
+    <div>
+      {s}
+    </div>
   );
 
 };
